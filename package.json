@@ -1,0 +1,18 @@
+{
+  "name": "senna-experiments",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "LGPL 2.1",
+  "scripts": {
+    "bundle": "browserify public/main.js --outfile public/bundle.js --transform babelify",
+    "start": "npm run bundle && serve public"
+  },
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "senna": "^2.1.1",
+    "serve": "^2.1.2"
+  }
+}

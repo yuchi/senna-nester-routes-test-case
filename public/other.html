@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Page 1 — Senna #180</title>
+    <script src="bundle.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="screen" id="content">
+      <h1>/index.html</h1>
+      <ul>
+        <li><a href="/index.html">/index.html</a></li>
+        <li><a href="/other.html">/other.html</a></li>
+      </ul>
+      <div class="app" id="cool-app">
+        <p>
+          <button id="pushstate"> Push State </button>
+        </p>
+        <p>
+          Status is <span id="status">???</span>
+        </p>
+      </div>
+      <script>
+        ;(function () {
+
+          window.addEventListener('popstate', onPopstate);
+
+          document.getElementById('pushstate').addEventListener('click', onClick);
+
+          updateStatus(' from senna/browser');
+
+          function updateStatus(suffix) {
+            document.getElementById('status').innerHTML = String(+getCount()) + suffix;
+          }
+
+          function getCount() {
+            const [_, count] = String(location).match(/\?count=(\d+)/) || [];
+            return parseInt(count || 0);
+          }
+
+          function onPopstate(event) {
+            console.log('[other.html] Got event', event);
+            updateStatus(' from history (app?)');
+          }
+
+          function onClick(event) {
+            console.log('[other.html] Got click');
+            const count = getCount() + 1;
+            window.history.pushState({ count }, '', '/other.html?count=' + count);
+            updateStatus(' from app');
+          }
+
+          onSPA(function (app) {
+            console.log('[other.html] Got app', app);
+            app.once('beforeNavigate', function(event) {
+              window.removeEventListener('popstate', onPopstate);
+            });
+          });
+
+        }());
+      </script>
+    </div>
+  </body>
+</html>

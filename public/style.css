@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+}
+
+.screen,
+.app {
+  max-width: 30em;
+  border-radius: 2px;
+  border: 2px solid;
+  padding: 1em 1em 0;
+  position: relative;
+}
+
+.screen {
+  margin: 3em;
+  border-color: dodgerblue;
+}
+
+.app {
+  margin: 0 0 1em;
+  border-color: firebrick;
+}
+
+.screen::before,
+.app::before {
+  text-transform: uppercase;
+  font-size: 10px;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+
+.screen::before {
+  content: 'Screen';
+}
+
+.app::before {
+  content: 'App';
+}
